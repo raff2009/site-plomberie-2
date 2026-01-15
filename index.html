@@ -1,4 +1,4 @@
-<!html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Bouton d'appel flottant -->
-    <a href="tel:0123456789" class="floating-call-btn" aria-label="Appeler">
-        <span class="phone-icon">📞</span>
-        <span class="call-text">Appelez-nous</span>
-    </a>
-
     <!-- Bouton retour en haut -->
     <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Retour en haut">↑</button>
 
@@ -38,7 +32,7 @@
                     <li><a href="#realisations" class="nav-link">Réalisations</a></li>
                     <li><a href="#temoignages" class="nav-link">Témoignages</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <li><a href="tel:0123456789" class="nav-cta">☎ Urgence</a></li>
+                    <li><a href="tel:0682691395" class="nav-cta">☎ Urgence</a></li>
                 </ul>
             </div>
         </nav>
@@ -55,7 +49,7 @@
             <p class="hero-description">Intervention rapide • Devis gratuit • Garantie sur tous travaux</p>
             <div class="hero-buttons">
                 <a href="#contact" class="btn btn-primary">Devis Gratuit</a>
-                <a href="tel:0123456789" class="btn btn-secondary">📞 Appel d'Urgence</a>
+                <a href="tel:0682691395" class="btn btn-secondary">📞 Appel d'Urgence</a>
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
@@ -83,7 +77,7 @@
         <div class="urgence-content">
             <span class="urgence-icon">🚨</span>
             <span class="urgence-text">Urgence Plomberie 24h/24 et 7j/7</span>
-            <a href="tel:0123456789" class="urgence-phone">06 82 69 13 95</a>
+            <a href="tel:0682691395" class="urgence-phone">06 82 69 13 95</a>
             <span class="urgence-badge">Intervention sous 30min</span>
         </div>
     </div>
@@ -148,7 +142,7 @@
                         <li>Intervention sous 30min</li>
                         <li>Réparation immédiate</li>
                     </ul>
-                    <a href="tel:0123456789" class="service-link">Appeler maintenant →</a>
+                    <a href="tel:0682691395" class="service-link">Appeler maintenant →</a>
                 </div>
                 <div class="service-card">
                     <div class="service-number">03</div>
@@ -439,7 +433,7 @@
                         <div class="contact-icon">📞</div>
                         <div>
                             <strong>Téléphone</strong>
-                            <a href="tel:0123456789">06 82 69 13 95</a>
+                            <a href="tel:0682691395">06 82 69 13 95</a>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -462,7 +456,7 @@
                             <strong>Horaires</strong>
                             <span>Lun-Ven : 8h-19h</span>
                             <span>Sam : 9h-17h</span>
-                            <span class="urgence-text">Urgence 24h/24</span>
+                            <span class="urgence-text-contact">Urgence 24h/24</span>
                         </div>
                     </div>
                     <div class="contact-certifications">
@@ -523,7 +517,7 @@
     </section>
 
     <!-- Section FAQ -->
-    <section class="faq">
+    <section id="faq" class="faq">
         <div class="container">
             <div class="section-header">
                 <span class="section-subtitle">Questions fréquentes</span>
@@ -572,4 +566,75 @@
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Oui, certains travaux (chaudière, isolation) peuvent être éligibles aux aides de l'État (MaPrimeRénov'). Nous vous accompagnons dans vos démarches.DOCTYPE 
+                        <p>Oui, certains travaux (chaudière, isolation) peuvent être éligibles aux aides de l'État (MaPrimeRénov'). Nous vous accompagnons dans vos démarches.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="logo">
+                        <span class="logo-icon">🔧</span>
+                        <span class="logo-text">Plomberie d'experience</span>
+                    </div>
+                    <p>Votre plombier de confiance à Lyon depuis 25 ans.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Liens rapides</h4>
+                    <a href="#accueil">Accueil</a>
+                    <a href="#services">Services</a>
+                    <a href="#tarifs">Tarifs</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p>📞 06 82 69 13 95</p>
+                    <p>✉️ contact@plomberie-expert.fr</p>
+                    <p>📍 Lyon et agglomération</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Plomberie Expert Lyon - Tous droits réservés</p>
+                <!-- Bouton admin caché -->
+                <button id="adminAccessBtn" class="admin-access-btn" title="Administration">⚙</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL ADMIN TERMINAL -->
+    <div id="adminModal" class="admin-modal">
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="terminal-btn close" id="closeTerminal"></span>
+                    <span class="terminal-btn minimize"></span>
+                    <span class="terminal-btn maximize"></span>
+                </div>
+                <div class="terminal-title">admin@plomberie-expert:~</div>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+                <div class="terminal-output" id="terminalOutput">
+                    <p class="terminal-line">╔══════════════════════════════════════════════════════════════╗</p>
+                    <p class="terminal-line">║     PLOMBERIE EXPERT - SYSTÈME D'ADMINISTRATION v2.0        ║</p>
+                    <p class="terminal-line">╚══════════════════════════════════════════════════════════════╝</p>
+                    <p class="terminal-line"></p>
+                    <p class="terminal-line">[SYSTÈME] Connexion requise...</p>
+                    <p class="terminal-line">[SYSTÈME] Tapez le mot de passe pour accéder au terminal.</p>
+                    <p class="terminal-line"></p>
+                </div>
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt">password:~$</span>
+                    <input type="password" id="terminalInput" class="terminal-input" autocomplete="off" autofocus>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
