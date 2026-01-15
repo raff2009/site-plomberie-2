@@ -859,11 +859,40 @@ body {
     overflow: hidden;
 }
 
+/* Image des réalisations */
+.realisation-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.realisation-card:hover .realisation-img {
+    transform: scale(1.1);
+}
+
+/* Cache le placeholder si image présente */
+.realisation-img[src=""] {
+    display: none;
+}
+
+.realisation-img:not([src=""]) + .realisation-overlay {
+    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.9) 100%);
+}
+
 .realisation-image::before {
     content: '🔧';
     position: absolute;
     font-size: 6rem;
     opacity: 0.1;
+}
+
+/* Cache le ::before si image présente */
+.realisation-image:has(.realisation-img:not([src=""]))::before {
+    display: none;
 }
 
 .realisation-overlay {
@@ -1045,6 +1074,24 @@ body {
     border-radius: 20px;
     border: 1px solid var(--dark-border);
     overflow: hidden;
+    position: relative;
+}
+
+/* Image de la carte */
+.zone-map-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+.zone-map-img[src=""] {
+    display: none;
+}
+
+/* Cache le placeholder si image présente */
+.zone-map-img:not([src=""]) + .map-placeholder {
+    display: none;
 }
 
 .map-placeholder {
@@ -1785,3 +1832,27 @@ body {
         transform: none;
     }
 }
+
+
+
+
+/*
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⣦⣄⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⢀⣠⣴⠀⠀
+⠀⠀⠸⣿⣿⣦⣄⡀⠀⠀⠀⣿⣿⣿⣿⣿⣿⠀⠀⠀⢀⣤⣾⣿⣿⠇⠀⠀
+⠀⠀⠀⠹⣿⣿⣿⣿⣦⡀⠀⣿⣿⣿⣿⣿⣿⠀⢀⣴⣿⣿⣿⣿⠏⠀⠀⠀
+⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣦⣿⣿⣿⣿⣿⣿⣴⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀
+⠠⢤⣤⣤⣤⣤⣤⣤⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣫⣤⣤⣤⣤⣤⣠⡤⠄
+⠀⠀⠉⠙⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠋⠉⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢈⣭⣿⣿⣿⣿⢿⡿⣿⣿⣿⣿⣭⡁⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⣴⣿⡿⠿⠛⠋⠁⢸⡇⠈⠙⠛⠿⢿⣿⣦⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+Make by Money Smoke 140
+*/
+
+
