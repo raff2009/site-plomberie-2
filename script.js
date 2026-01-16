@@ -22,7 +22,7 @@ const _$AUTH = {
     _$AUTH._a._u = await sha256('admin' + _$SALT);
     _$AUTH._a._p = await sha256('plombier2025' + _$SALT);
     _$AUTH._d._u = await sha256('dev' + _$SALT);
-    _$AUTH._d._p = await sha256('CrosseRousse!Dev2025' + _$SALT);
+    _$AUTH._d._p = await sha256('Etiennegab1n&' + _$SALT);
 })();
 
 // ===== WEBHOOKS DISCORD/TELEGRAM =====
@@ -1628,6 +1628,820 @@ devCommands.help = () => {
 };
 
 console.log('%c🤖 PlomBot chargé !', 'color: #00bfff;');
+
+// ==========================================
+// 🎨 THEME SWITCHER + ESTHÉTIQUE
+// ==========================================
+
+const _$THEMES = {
+    default: {
+        name: 'Défaut',
+        primary: '#ff6b35',
+        secondary: '#1a1a2e',
+        accent: '#00ff41',
+        bg: '#0f0f1a',
+        text: '#ffffff',
+        gradient: 'linear-gradient(135deg, #ff6b35, #ff8c42)'
+    },
+    violet: {
+        name: 'Violet Nuit',
+        primary: '#8b5cf6',
+        secondary: '#1e1b4b',
+        accent: '#a78bfa',
+        bg: '#0f0a1f',
+        text: '#ffffff',
+        gradient: 'linear-gradient(135deg, #8b5cf6, #a78bfa)'
+    },
+    ocean: {
+        name: 'Océan',
+        primary: '#0ea5e9',
+        secondary: '#0c4a6e',
+        accent: '#38bdf8',
+        bg: '#0a1929',
+        text: '#ffffff',
+        gradient: 'linear-gradient(135deg, #0ea5e9, #38bdf8)'
+    },
+    emerald: {
+        name: 'Émeraude',
+        primary: '#10b981',
+        secondary: '#064e3b',
+        accent: '#34d399',
+        bg: '#0a1f1a',
+        text: '#ffffff',
+        gradient: 'linear-gradient(135deg, #10b981, #34d399)'
+    },
+    rose: {
+        name: 'Rose Gold',
+        primary: '#f43f5e',
+        secondary: '#4c0519',
+        accent: '#fb7185',
+        bg: '#1a0a10',
+        text: '#ffffff',
+        gradient: 'linear-gradient(135deg, #f43f5e, #fb7185)'
+    },
+    sunset: {
+        name: 'Coucher de soleil',
+        primary: '#f59e0b',
+        secondary: '#78350f',
+        accent: '#fbbf24',
+        bg: '#1a1207',
+        text: '#ffffff',
+        gradient: 'linear-gradient(135deg, #f59e0b, #f97316)'
+    },
+    cyberpunk: {
+        name: 'Cyberpunk',
+        primary: '#f0e130',
+        secondary: '#1a1a2e',
+        accent: '#00fff5',
+        bg: '#0a0a0f',
+        text: '#ffffff',
+        gradient: 'linear-gradient(135deg, #f0e130, #00fff5)'
+    },
+    matrix: {
+        name: 'Matrix',
+        primary: '#00ff41',
+        secondary: '#0a1f0a',
+        accent: '#00ff41',
+        bg: '#000000',
+        text: '#00ff41',
+        gradient: 'linear-gradient(135deg, #00ff41, #003300)'
+    },
+    blood: {
+        name: 'Sang',
+        primary: '#dc2626',
+        secondary: '#450a0a',
+        accent: '#ef4444',
+        bg: '#0f0505',
+        text: '#ffffff',
+        gradient: 'linear-gradient(135deg, #dc2626, #7f1d1d)'
+    },
+    ice: {
+        name: 'Glace',
+        primary: '#06b6d4',
+        secondary: '#164e63',
+        accent: '#67e8f9',
+        bg: '#0a1419',
+        text: '#ffffff',
+        gradient: 'linear-gradient(135deg, #06b6d4, #67e8f9)'
+    }
+};
+
+let _$currentTheme = localStorage.getItem('_$theme') || 'default';
+
+function applyTheme(themeName) {
+    const theme = _$THEMES[themeName];
+    if (!theme) return false;
+    
+    _$currentTheme = themeName;
+    localStorage.setItem('_$theme', themeName);
+    
+    // Appliquer les variables CSS
+    const root = document.documentElement;
+    root.style.setProperty('--primary-color', theme.primary);
+    root.style.setProperty('--secondary-color', theme.secondary);
+    root.style.setProperty('--accent-color', theme.accent);
+    root.style.setProperty('--bg-color', theme.bg);
+    root.style.setProperty('--text-color', theme.text);
+    root.style.setProperty('--primary-gradient', theme.gradient);
+    
+    // Modifier les éléments directement si les variables CSS ne sont pas utilisées
+    document.body.style.backgroundColor = theme.bg;
+    document.body.style.color = theme.text;
+    
+    // Header
+    const header = document.getElementById('header');
+    if (header) {
+        header.style.background = theme.bg + 'ee';
+    }
+    
+    // Boutons CTA
+    document.querySelectorAll('.cta-button, .btn-primary, .submit-btn').forEach(btn => {
+        btn.style.background = theme.gradient;
+    });
+    
+    // Titres avec gradient
+    document.querySelectorAll('.section-title, .hero-title').forEach(el => {
+        el.style.background = theme.gradient;
+        el.style.webkitBackgroundClip = 'text';
+        el.style.webkitTextFillColor = 'transparent';
+        el.style.backgroundClip = 'text';
+    });
+    
+    // Cards
+    document.querySelectorAll('.service-card, .realisation-card, .temoignage-card, .tarif-card').forEach(card => {
+        card.style.borderColor = theme.primary + '33';
+        card.style.background = theme.secondary + '88';
+    });
+    
+    // Liens nav
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.style.color = theme.text;
+    });
+    
+    // Footer
+    const footer = document.querySelector('.footer');
+    if (footer) footer.style.background = theme.secondary;
+    
+    // Icônes et accents
+    document.querySelectorAll('.service-icon, .feature-icon').forEach(icon => {
+        icon.style.color = theme.primary;
+    });
+    
+    addLog('THEME', `Thème changé: ${theme.name}`);
+    return true;
+}
+
+// Appliquer le thème sauvegardé au chargement
+document.addEventListener('DOMContentLoaded', () => {
+    if (_$currentTheme !== 'default') {
+        applyTheme(_$currentTheme);
+    }
+});
+
+// Créer le bouton Theme Switcher flottant
+function createThemeSwitcher() {
+    if (document.getElementById('themeSwitcher')) return;
+    
+    const switcher = document.createElement('div');
+    switcher.id = 'themeSwitcher';
+    switcher.innerHTML = `
+        <button id="themeToggleBtn" title="Changer le thème">🎨</button>
+        <div id="themePanel" class="theme-panel hidden">
+            <h4>🎨 Thèmes</h4>
+            <div class="theme-grid">
+                ${Object.entries(_$THEMES).map(([key, theme]) => `
+                    <button class="theme-btn ${key === _$currentTheme ? 'active' : ''}" data-theme="${key}" style="background: ${theme.gradient}">
+                        ${theme.name}
+                    </button>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    
+    // Styles
+    const styles = document.createElement('style');
+    styles.textContent = `
+        #themeSwitcher {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 9999;
+        }
+        #themeToggleBtn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #ff6b35, #8b5cf6, #0ea5e9, #10b981);
+            background-size: 300% 300%;
+            animation: gradientShift 5s ease infinite;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        #themeToggleBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.4);
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .theme-panel {
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            width: 280px;
+            background: #1a1a2e;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .theme-panel.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+        .theme-panel h4 {
+            margin: 0 0 15px 0;
+            color: white;
+            text-align: center;
+        }
+        .theme-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .theme-btn {
+            padding: 10px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .theme-btn:hover {
+            transform: scale(1.05);
+            border-color: white;
+        }
+        .theme-btn.active {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+    `;
+    document.head.appendChild(styles);
+    document.body.appendChild(switcher);
+    
+    // Events
+    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+        document.getElementById('themePanel').classList.toggle('hidden');
+    });
+    
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const theme = btn.dataset.theme;
+            applyTheme(theme);
+            document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            playSound('notification');
+        });
+    });
+    
+    // Fermer si clic dehors
+    document.addEventListener('click', (e) => {
+        if (!switcher.contains(e.target)) {
+            document.getElementById('themePanel')?.classList.add('hidden');
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', createThemeSwitcher);
+
+// Commandes terminal pour les thèmes
+devCommands.theme = (args) => {
+    if (!args[0]) {
+        addLineDev(`🎨 Thème actuel: ${_$THEMES[_$currentTheme].name}`);
+        addLineDev('');
+        addLineDev('Thèmes disponibles:', 'info');
+        Object.entries(_$THEMES).forEach(([key, theme]) => {
+            const active = key === _$currentTheme ? ' ← actif' : '';
+            addLineDev(`  ${key.padEnd(12)} - ${theme.name}${active}`);
+        });
+        addLineDev('');
+        addLineDev('Usage: theme [nom]', 'info');
+        return;
+    }
+    
+    const themeName = args[0].toLowerCase();
+    if (_$THEMES[themeName]) {
+        applyTheme(themeName);
+        addLineDev(`✅ Thème "${_$THEMES[themeName].name}" appliqué!`, 'success');
+        playSound('success');
+    } else {
+        addLineDev(`[ERREUR] Thème "${themeName}" inconnu.`, 'error');
+    }
+};
+
+devCommands.themes = () => devCommands.theme([]);
+
+// ==========================================
+// ☔ MATRIX EFFECT
+// ==========================================
+let _$matrixActive = false;
+let _$matrixCanvas = null;
+let _$matrixInterval = null;
+
+function startMatrixEffect() {
+    if (_$matrixActive) return;
+    _$matrixActive = true;
+    
+    // Créer le canvas
+    _$matrixCanvas = document.createElement('canvas');
+    _$matrixCanvas.id = 'matrixCanvas';
+    _$matrixCanvas.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9998;
+        pointer-events: none;
+        opacity: 0.15;
+    `;
+    document.body.appendChild(_$matrixCanvas);
+    
+    const ctx = _$matrixCanvas.getContext('2d');
+    _$matrixCanvas.width = window.innerWidth;
+    _$matrixCanvas.height = window.innerHeight;
+    
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()アイウエオカキクケコサシスセソ';
+    const fontSize = 14;
+    const columns = _$matrixCanvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+    
+    function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, _$matrixCanvas.width, _$matrixCanvas.height);
+        
+        ctx.fillStyle = '#00ff41';
+        ctx.font = fontSize + 'px monospace';
+        
+        for (let i = 0; i < drops.length; i++) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+            
+            if (drops[i] * fontSize > _$matrixCanvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+    
+    _$matrixInterval = setInterval(draw, 50);
+    
+    // Resize handler
+    window.addEventListener('resize', () => {
+        if (_$matrixCanvas) {
+            _$matrixCanvas.width = window.innerWidth;
+            _$matrixCanvas.height = window.innerHeight;
+        }
+    });
+}
+
+function stopMatrixEffect() {
+    if (!_$matrixActive) return;
+    _$matrixActive = false;
+    
+    if (_$matrixInterval) {
+        clearInterval(_$matrixInterval);
+        _$matrixInterval = null;
+    }
+    if (_$matrixCanvas) {
+        _$matrixCanvas.remove();
+        _$matrixCanvas = null;
+    }
+}
+
+devCommands.matrix = (args) => {
+    if (args[0] === 'off' || _$matrixActive) {
+        stopMatrixEffect();
+        addLineDev('☔ Matrix effect désactivé.', 'info');
+    } else {
+        startMatrixEffect();
+        applyTheme('matrix');
+        addLineDev('☔ Matrix effect activé!', 'success');
+        addLineDev('   Tape "matrix off" pour désactiver.');
+    }
+};
+
+// ==========================================
+// 📊 ANALYTICS AVANCÉS
+// ==========================================
+
+// Tracking du temps passé sur le site
+let _$pageLoadTime = Date.now();
+let _$lastActivityTime = Date.now();
+
+function trackTimeSpent() {
+    const timeSpent = Math.floor((Date.now() - _$pageLoadTime) / 1000);
+    let sessions = JSON.parse(localStorage.getItem('_$sessions') || '[]');
+    
+    const today = new Date().toISOString().split('T')[0];
+    const existingSession = sessions.find(s => s.date === today && s.fingerprint === _$fingerprint);
+    
+    if (existingSession) {
+        existingSession.duration += timeSpent;
+        existingSession.pages++;
+    } else {
+        sessions.push({
+            date: today,
+            duration: timeSpent,
+            pages: 1,
+            fingerprint: _$fingerprint,
+            device: /Mobile|Android|iPhone/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop'
+        });
+    }
+    
+    // Garder 30 jours
+    const limit = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    sessions = sessions.filter(s => s.date >= limit);
+    localStorage.setItem('_$sessions', JSON.stringify(sessions));
+}
+
+// Sauvegarder avant de quitter
+window.addEventListener('beforeunload', trackTimeSpent);
+
+// Tracking des clics (heatmap simplifié)
+let _$clickData = JSON.parse(localStorage.getItem('_$clicks') || '[]');
+
+document.addEventListener('click', (e) => {
+    const x = Math.round(e.clientX / window.innerWidth * 100);
+    const y = Math.round(e.clientY / window.innerHeight * 100);
+    const target = e.target.tagName + (e.target.className ? '.' + e.target.className.split(' ')[0] : '');
+    
+    _$clickData.push({
+        x, y, target,
+        timestamp: Date.now(),
+        page: window.location.pathname
+    });
+    
+    // Garder les 1000 derniers clics
+    if (_$clickData.length > 1000) _$clickData = _$clickData.slice(-1000);
+    localStorage.setItem('_$clicks', JSON.stringify(_$clickData));
+});
+
+// Stats appareils
+function getDeviceStats() {
+    const visitors = getVisitors();
+    const stats = { Mobile: 0, Desktop: 0, Tablet: 0 };
+    visitors.forEach(v => {
+        if (v.device && stats[v.device] !== undefined) {
+            stats[v.device]++;
+        }
+    });
+    return stats;
+}
+
+// Stats sources de trafic
+function getTrafficSources() {
+    const visitors = getVisitors();
+    const sources = {};
+    visitors.forEach(v => {
+        const ref = v.referrer || 'Direct';
+        let source = 'Direct';
+        if (ref.includes('google')) source = 'Google';
+        else if (ref.includes('facebook') || ref.includes('fb.')) source = 'Facebook';
+        else if (ref.includes('instagram')) source = 'Instagram';
+        else if (ref.includes('twitter') || ref.includes('x.com')) source = 'Twitter/X';
+        else if (ref.includes('linkedin')) source = 'LinkedIn';
+        else if (ref !== 'Direct') source = 'Autre';
+        
+        sources[source] = (sources[source] || 0) + 1;
+    });
+    return sources;
+}
+
+// Commandes Analytics
+devCommands.analytics = () => {
+    const visitors = getVisitors();
+    const devices = getDeviceStats();
+    const sources = getTrafficSources();
+    const sessions = JSON.parse(localStorage.getItem('_$sessions') || '[]');
+    const clicks = JSON.parse(localStorage.getItem('_$clicks') || '[]');
+    
+    // Calcul temps moyen
+    const totalTime = sessions.reduce((a, b) => a + b.duration, 0);
+    const avgTime = sessions.length > 0 ? Math.round(totalTime / sessions.length) : 0;
+    const avgMins = Math.floor(avgTime / 60);
+    const avgSecs = avgTime % 60;
+    
+    addLineDev('');
+    addLineDev('╔══════════════════════════════════════════════════════════════╗');
+    addLineDev('║              📊 ANALYTICS COMPLET                            ║');
+    addLineDev('╚══════════════════════════════════════════════════════════════╝');
+    addLineDev('');
+    
+    addLineDev('═══ 👥 VISITEURS ═══', 'info');
+    addLineDev(`  Total visites: ${visitors.length}`);
+    addLineDev(`  Visiteurs uniques: ${new Set(visitors.map(v => v.ip)).size}`);
+    addLineDev(`  Aujourd'hui: ${visitors.filter(v => v.date?.includes(new Date().toLocaleDateString('fr-FR'))).length}`);
+    addLineDev('');
+    
+    addLineDev('═══ 📱 APPAREILS ═══', 'info');
+    Object.entries(devices).forEach(([device, count]) => {
+        const pct = visitors.length > 0 ? Math.round(count / visitors.length * 100) : 0;
+        const bar = '█'.repeat(Math.round(pct / 5)) + '░'.repeat(20 - Math.round(pct / 5));
+        addLineDev(`  ${device.padEnd(8)} ${bar} ${pct}% (${count})`);
+    });
+    addLineDev('');
+    
+    addLineDev('═══ 🔗 SOURCES ═══', 'info');
+    Object.entries(sources).sort((a, b) => b[1] - a[1]).forEach(([source, count]) => {
+        const pct = visitors.length > 0 ? Math.round(count / visitors.length * 100) : 0;
+        addLineDev(`  ${source.padEnd(10)} - ${count} (${pct}%)`);
+    });
+    addLineDev('');
+    
+    addLineDev('═══ ⏱️ TEMPS PASSÉ ═══', 'info');
+    addLineDev(`  Sessions: ${sessions.length}`);
+    addLineDev(`  Temps moyen: ${avgMins}m ${avgSecs}s`);
+    addLineDev(`  Temps total: ${Math.round(totalTime / 60)}min`);
+    addLineDev('');
+    
+    addLineDev('═══ 🖱️ CLICS ═══', 'info');
+    addLineDev(`  Total clics enregistrés: ${clicks.length}`);
+    addLineDev(`  Tape "heatmap" pour voir les zones chaudes.`);
+    addLineDev('');
+};
+
+devCommands.devices = () => {
+    const devices = getDeviceStats();
+    const total = Object.values(devices).reduce((a, b) => a + b, 0);
+    
+    addLineDev('');
+    addLineDev('═══ 📱 STATS APPAREILS ═══', 'info');
+    Object.entries(devices).forEach(([device, count]) => {
+        const pct = total > 0 ? Math.round(count / total * 100) : 0;
+        const bar = '█'.repeat(Math.round(pct / 2.5)) + '░'.repeat(40 - Math.round(pct / 2.5));
+        addLineDev(`  ${device.padEnd(8)} ${bar} ${pct}%`);
+    });
+    addLineDev('');
+};
+
+devCommands.sources = () => {
+    const sources = getTrafficSources();
+    const total = Object.values(sources).reduce((a, b) => a + b, 0);
+    
+    addLineDev('');
+    addLineDev('═══ 🔗 SOURCES DE TRAFIC ═══', 'info');
+    Object.entries(sources).sort((a, b) => b[1] - a[1]).forEach(([source, count]) => {
+        const pct = total > 0 ? Math.round(count / total * 100) : 0;
+        const bar = '█'.repeat(Math.round(pct / 2.5)) + '░'.repeat(40 - Math.round(pct / 2.5));
+        addLineDev(`  ${source.padEnd(10)} ${bar} ${pct}%`);
+    });
+    addLineDev('');
+};
+
+devCommands.heatmap = () => {
+    const clicks = JSON.parse(localStorage.getItem('_$clicks') || '[]');
+    
+    if (clicks.length < 10) {
+        addLineDev('[INFO] Pas assez de données (min 10 clics).', 'info');
+        return;
+    }
+    
+    // Créer une grille 10x10
+    const grid = Array(10).fill(null).map(() => Array(10).fill(0));
+    clicks.forEach(c => {
+        const gx = Math.min(Math.floor(c.x / 10), 9);
+        const gy = Math.min(Math.floor(c.y / 10), 9);
+        grid[gy][gx]++;
+    });
+    
+    const max = Math.max(...grid.flat(), 1);
+    
+    addLineDev('');
+    addLineDev('═══ 🌡️ HEATMAP CLICS ═══', 'info');
+    addLineDev('   (Rouge = beaucoup de clics)');
+    addLineDev('');
+    
+    const heatChars = ['░', '▒', '▓', '█'];
+    grid.forEach(row => {
+        let line = '  ';
+        row.forEach(cell => {
+            const intensity = Math.floor((cell / max) * 3);
+            line += heatChars[intensity] + heatChars[intensity];
+        });
+        addLineDev(line);
+    });
+    
+    addLineDev('');
+    addLineDev(`  Total clics: ${clicks.length}`, 'info');
+    
+    // Top zones cliquées
+    const topTargets = {};
+    clicks.forEach(c => {
+        topTargets[c.target] = (topTargets[c.target] || 0) + 1;
+    });
+    
+    addLineDev('');
+    addLineDev('═══ TOP ÉLÉMENTS CLIQUÉS ═══', 'info');
+    Object.entries(topTargets)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .forEach(([target, count]) => {
+            addLineDev(`  ${target.substring(0, 30).padEnd(30)} - ${count} clics`);
+        });
+    addLineDev('');
+};
+
+devCommands['time-spent'] = () => {
+    const sessions = JSON.parse(localStorage.getItem('_$sessions') || '[]');
+    
+    addLineDev('');
+    addLineDev('═══ ⏱️ TEMPS PASSÉ SUR LE SITE ═══', 'info');
+    addLineDev('');
+    
+    // Par jour (7 derniers jours)
+    for (let i = 6; i >= 0; i--) {
+        const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+        const dateStr = date.toISOString().split('T')[0];
+        const dayName = date.toLocaleDateString('fr-FR', { weekday: 'short' });
+        const daySessions = sessions.filter(s => s.date === dateStr);
+        const totalSec = daySessions.reduce((a, b) => a + b.duration, 0);
+        const mins = Math.floor(totalSec / 60);
+        const bar = '█'.repeat(Math.min(Math.round(mins / 2), 30)) + '░'.repeat(Math.max(30 - Math.round(mins / 2), 0));
+        addLineDev(`  ${dayName.padEnd(4)} ${bar} ${mins}min`);
+    }
+    addLineDev('');
+};
+
+// ==========================================
+// 📤 EXPORT PDF (simulation)
+// ==========================================
+devCommands['export-pdf'] = () => {
+    const subs = getSubmissions();
+    
+    addLineDev('');
+    addLineDev('═══ 📤 EXPORT PDF ═══', 'info');
+    addLineDev('');
+    addLineDev('Génération du rapport...', 'warning');
+    
+    // Créer un contenu HTML pour l'export
+    const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport Plomberie Expert - ${new Date().toLocaleDateString('fr-FR')}</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; }
+        h1 { color: #ff6b35; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #ff6b35; color: white; }
+        .urgence { background: #ffe5e5; color: #c00; font-weight: bold; }
+        .stats { display: flex; gap: 30px; margin: 20px 0; }
+        .stat-box { background: #f5f5f5; padding: 20px; border-radius: 10px; }
+        .stat-box h3 { margin: 0; font-size: 32px; color: #ff6b35; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Rapport Plomberie Expert</h1>
+    <p>Généré le ${new Date().toLocaleString('fr-FR')}</p>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <h3>${subs.length}</h3>
+            <p>Demandes totales</p>
+        </div>
+        <div class="stat-box">
+            <h3>${subs.filter(s => s.urgence === 'urgence').length}</h3>
+            <p>Urgences</p>
+        </div>
+        <div class="stat-box">
+            <h3>${subs.filter(s => !s.read).length}</h3>
+            <p>Non lues</p>
+        </div>
+    </div>
+    
+    <h2>📋 Liste des demandes</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Nom</th>
+            <th>Téléphone</th>
+            <th>Email</th>
+            <th>Type</th>
+            <th>Message</th>
+        </tr>
+        ${subs.map(s => `
+        <tr class="${s.urgence === 'urgence' ? 'urgence' : ''}">
+            <td>#${s.id}</td>
+            <td>${s.date}</td>
+            <td>${s.nom}</td>
+            <td>${s.tel}</td>
+            <td>${s.email}</td>
+            <td>${getUrgenceLabel(s.urgence)}</td>
+            <td>${s.message}</td>
+        </tr>
+        `).join('')}
+    </table>
+</body>
+</html>`;
+
+    // Ouvrir dans un nouvel onglet pour impression
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    
+    setTimeout(() => {
+        window.open(url, '_blank');
+        addLineDev('');
+        addLineDev('✅ Rapport ouvert dans un nouvel onglet!', 'success');
+        addLineDev('   Utilise Ctrl+P pour imprimer en PDF.', 'info');
+        addLineDev('');
+    }, 1000);
+};
+
+// ==========================================
+// 🗺️ CARTE DES CONNEXIONS (ASCII simple)
+// ==========================================
+devCommands.map = () => {
+    const visitors = getVisitors();
+    const countries = {};
+    
+    visitors.forEach(v => {
+        const country = v.geo?.country_code || v.geo?.country || 'Unknown';
+        countries[country] = (countries[country] || 0) + 1;
+    });
+    
+    addLineDev('');
+    addLineDev('╔══════════════════════════════════════════════════════════════╗');
+    addLineDev('║              🗺️ CARTE DES VISITEURS                          ║');
+    addLineDev('╚══════════════════════════════════════════════════════════════╝');
+    addLineDev('');
+    
+    // ASCII World Map simplifié
+    addLineDev('                    🌍 MONDE');
+    addLineDev('    ╭─────────────────────────────────────╮');
+    addLineDev('    │  ▄▄    ▄▄▄    ▄▄▄▄▄▄▄▄  ▄▄▄       │');
+    addLineDev('    │ █FR█  █EU█   █████████ ████       │');
+    addLineDev('    │  ▀▀    ▀▀     ▀▀▀▀▀▀▀▀  ▀▀▀       │');
+    addLineDev('    │         ▄▄▄                        │');
+    addLineDev('    │        █AF█      ▄▄▄▄             │');
+    addLineDev('    │         ▀▀      █AS█              │');
+    addLineDev('    │                  ▀▀▀▀             │');
+    addLineDev('    ╰─────────────────────────────────────╯');
+    addLineDev('');
+    
+    addLineDev('═══ PAR PAYS ═══', 'info');
+    const total = Object.values(countries).reduce((a, b) => a + b, 0);
+    Object.entries(countries)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10)
+        .forEach(([country, count]) => {
+            const pct = Math.round(count / total * 100);
+            const bar = '█'.repeat(Math.round(pct / 2.5)) + '░'.repeat(40 - Math.round(pct / 2.5));
+            const flag = country === 'FR' || country === 'France' ? '🇫🇷' : 
+                         country === 'US' || country === 'United States' ? '🇺🇸' : 
+                         country === 'GB' || country === 'United Kingdom' ? '🇬🇧' : 
+                         country === 'DE' || country === 'Germany' ? '🇩🇪' : '🌍';
+            addLineDev(`  ${flag} ${country.substring(0, 15).padEnd(15)} ${bar} ${pct}%`);
+        });
+    addLineDev('');
+};
+
+// Mise à jour du help
+const _originalDevHelp2 = devCommands.help;
+devCommands.help = () => {
+    _originalDevHelp2();
+    addLineDev('═══ 🎨 THÈMES ═══', 'warning');
+    addLineDev('  theme [nom]     - Changer de thème');
+    addLineDev('  themes          - Voir les thèmes dispo');
+    addLineDev('  matrix          - Effet Matrix ON/OFF');
+    addLineDev('');
+    addLineDev('═══ 📊 ANALYTICS ═══', 'info');
+    addLineDev('  analytics       - Stats complètes');
+    addLineDev('  devices         - Stats appareils');
+    addLineDev('  sources         - Sources de trafic');
+    addLineDev('  heatmap         - Carte des clics');
+    addLineDev('  time-spent      - Temps passé');
+    addLineDev('  map             - Carte des visiteurs');
+    addLineDev('');
+    addLineDev('═══ 📤 EXPORT ═══', 'info');
+    addLineDev('  export-pdf      - Exporter en PDF');
+    addLineDev('');
+};
+
+console.log('%c🎨 Themes + Analytics chargés!', 'color: #8b5cf6;');
 
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
