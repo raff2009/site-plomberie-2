@@ -292,28 +292,41 @@ _$CHANNEL.onmessage = (e) => {
 let _$visitorIP = null;
 let _$visitorGeo = null;
 
+// ===== IP & GÉO (avec fallback multiple APIs) =====
+let _$visitorIP = null;
+let _$visitorGeo = null;
+
 async function getVisitorInfo() {
-    try {
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        _$visitorIP = data.ip;
-        _$visitorGeo = {
-            city: data.city || 'Inconnu',
-            region: data.region || '',
-            country: data.country_name || 'Inconnu',
-            country_code: data.country_code || '',
-            latitude: data.latitude,
-            longitude: data.longitude,
-            isp: data.org || 'Inconnu',
-            isVPN: data.org?.toLowerCase().includes('vpn') || data.org?.toLowerCase().includes('proxy') || data.org?.toLowerCase().includes('hosting') || data.org?.toLowerCase().includes('cloud')
-        };
-        recordVisitor();
-        return { ip: _$visitorIP, geo: _$visitorGeo };
-    } catch (e) {
-        _$visitorIP = 'Inconnu';
-        _$visitorGeo = { city: 'Inconnu', country: 'Inconnu', isp: 'Inconnu', isVPN: false };
-        return null;
+    const apis = [
+        {
+            url: "https://ip-api.com/json/?fields=status,country,countryCode,region,city,lat,lon,isp,org,query",
+            parse: (data) => ({ ip: data.query, geo: { city: data.city || "Inconnu", region: data.region || "", country: data.country || "Inconnu", country_code: data.countryCode || "", latitude: data.lat, longitude: data.lon, isp: data.isp || data.org || "Inconnu", isVPN: (data.org || "").toLowerCase().includes("vpn") || (data.org || "").toLowerCase().includes("proxy") || (data.org || "").toLowerCase().includes("hosting") } })
+        },
+        {
+            url: "https://ipapi.co/json/",
+            parse: (data) => ({ ip: data.ip, geo: { city: data.city || "Inconnu", region: data.region || "", country: data.country_name || "Inconnu", country_code: data.country_code || "", latitude: data.latitude, longitude: data.longitude, isp: data.org || "Inconnu", isVPN: (data.org || "").toLowerCase().includes("vpn") || (data.org || "").toLowerCase().includes("proxy") } })
+        },
+        {
+            url: "https://ipwho.is/",
+            parse: (data) => ({ ip: data.ip, geo: { city: data.city || "Inconnu", region: data.region || "", country: data.country || "Inconnu", country_code: data.country_code || "", latitude: data.latitude, longitude: data.longitude, isp: data.connection?.isp || "Inconnu", isVPN: data.security?.vpn || data.security?.proxy || false } })
+        }
+    ];
+    for (const api of apis) {
+        try {
+            const response = await fetch(api.url);
+            const data = await response.json();
+            if (data && (data.query || data.ip)) {
+                const result = api.parse(data);
+                _$visitorIP = result.ip;
+                _$visitorGeo = result.geo;
+                recordVisitor();
+                return result;
+            }
+        } catch (e) { continue; }
     }
+    _$visitorIP = "Inconnu";
+    _$visitorGeo = { city: "Inconnu", country: "Inconnu", isp: "Inconnu", isVPN: false };
+    return null;
 }
 getVisitorInfo();
 
@@ -474,6 +487,8 @@ document.addEventListener('click', updateActivity);
 
 // ===== BLOCAGE COPIER/COLLER =====
 document.addEventListener('paste', (e) => {
+    // Autoriser le coller si déjà connecté
+    if (_$adminLoggedIn || _$devLoggedIn) return;
     const target = e.target;
     if (target.type === 'password' || target.id === 'terminalInput' || target.id === 'devTerminalInput') {
         e.preventDefault();
@@ -2442,7 +2457,6 @@ devCommands.help = () => {
 };
 
 console.log('%c🎨 Themes + Analytics chargés!', 'color: #8b5cf6;');
-
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
