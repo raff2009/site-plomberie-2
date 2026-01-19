@@ -292,9 +292,6 @@ _$CHANNEL.onmessage = (e) => {
 let _$visitorIP = null;
 let _$visitorGeo = null;
 
-// ===== IP & GÉO (avec fallback multiple APIs) =====
-let _$visitorIP = null;
-let _$visitorGeo = null;
 
 async function getVisitorInfo() {
     const apis = [
