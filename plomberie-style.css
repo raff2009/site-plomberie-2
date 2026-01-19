@@ -1,5 +1,5 @@
 /* ==========================================
-   RESET & BASE STYLES
+   PLOMBERIE D'EXPERIENCE - STYLES
    ========================================== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
@@ -21,7 +21,6 @@
     --text-muted: #6e7681;
     --gradient-primary: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
     --gradient-dark: linear-gradient(180deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
-    --gradient-bg: linear-gradient(135deg, #0d1117 0%, #1a1f2e 25%, #0d1117 50%, #1a1f2e 75%, #0d1117 100%);
     --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 5px 20px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.5);
@@ -38,10 +37,6 @@ body {
     line-height: 1.6;
     color: var(--text-primary);
     background: var(--dark-bg);
-    background-image: 
-        radial-gradient(ellipse at top, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
-        radial-gradient(ellipse at bottom, rgba(247, 147, 30, 0.03) 0%, transparent 50%);
-    background-attachment: fixed;
     overflow-x: hidden;
 }
 
@@ -49,6 +44,44 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+/* ==========================================
+   BACK TO HUB BUTTON
+   ========================================== */
+.back-to-hub {
+    position: fixed;
+    top: 100px;
+    left: 30px;
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    color: var(--primary-color);
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 999;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.back-to-hub:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.back-to-hub span {
+    transition: transform 0.3s ease;
+}
+
+.back-to-hub:hover span {
+    transform: translateX(-5px);
 }
 
 /* ==========================================
@@ -409,25 +442,13 @@ body {
 }
 
 @keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
@@ -448,7 +469,6 @@ body {
     background: var(--gradient-primary);
     padding: 20px;
     text-align: center;
-    animation: slideDown 0.5s ease;
 }
 
 .urgence-content {
@@ -492,15 +512,6 @@ body {
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 0.9rem;
-}
-
-@keyframes slideDown {
-    from {
-        transform: translateY(-100%);
-    }
-    to {
-        transform: translateY(0);
-    }
 }
 
 /* ==========================================
@@ -604,7 +615,6 @@ body {
     border: 1px solid var(--dark-border);
     transition: var(--transition);
     overflow: hidden;
-    backdrop-filter: blur(10px);
 }
 
 .service-card::before {
@@ -685,7 +695,6 @@ body {
     left: 0;
     color: var(--primary-color);
     font-weight: bold;
-    font-size: 0.9rem;
 }
 
 .service-link {
@@ -859,7 +868,6 @@ body {
     overflow: hidden;
 }
 
-/* Image des réalisations */
 .realisation-img {
     position: absolute;
     top: 0;
@@ -872,27 +880,6 @@ body {
 
 .realisation-card:hover .realisation-img {
     transform: scale(1.1);
-}
-
-/* Cache le placeholder si image présente */
-.realisation-img[src=""] {
-    display: none;
-}
-
-.realisation-img:not([src=""]) + .realisation-overlay {
-    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.9) 100%);
-}
-
-.realisation-image::before {
-    content: '🔧';
-    position: absolute;
-    font-size: 6rem;
-    opacity: 0.1;
-}
-
-/* Cache le ::before si image présente */
-.realisation-image:has(.realisation-img:not([src=""]))::before {
-    display: none;
 }
 
 .realisation-overlay {
@@ -967,7 +954,6 @@ body {
     border: 1px solid var(--dark-border);
     transition: var(--transition);
     position: relative;
-    overflow: hidden;
 }
 
 .temoignage-card::before {
@@ -995,15 +981,10 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.temoignage-author {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
 .temoignage-author strong {
     color: white;
     font-size: 1.1rem;
+    display: block;
 }
 
 .temoignage-author span {
@@ -1015,10 +996,6 @@ body {
     transform: translateY(-10px);
     border-color: var(--primary-color);
     box-shadow: 0 20px 40px rgba(255, 107, 53, 0.15);
-}
-
-.temoignage-card:hover::before {
-    opacity: 0.2;
 }
 
 .temoignages-stats {
@@ -1077,21 +1054,10 @@ body {
     position: relative;
 }
 
-/* Image de la carte */
 .zone-map-img {
     width: 100%;
     height: 400px;
     object-fit: cover;
-    display: block;
-}
-
-.zone-map-img[src=""] {
-    display: none;
-}
-
-/* Cache le placeholder si image présente */
-.zone-map-img:not([src=""]) + .map-placeholder {
-    display: none;
 }
 
 .map-placeholder {
@@ -1259,10 +1225,6 @@ body {
 }
 
 /* Formulaire Contact */
-.contact-form-wrapper {
-    position: relative;
-}
-
 .success-message {
     display: none;
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -1272,7 +1234,6 @@ body {
     margin-bottom: 20px;
     font-weight: bold;
     text-align: center;
-    animation: slideDown 0.5s ease;
 }
 
 .success-message.show {
@@ -1354,8 +1315,7 @@ body {
 }
 
 .btn-icon {
-    font-size: 1.3rem;
-    transition: var(--transition);
+    transition: transform 0.3s ease;
 }
 
 .submit-btn:hover .btn-icon {
@@ -1494,236 +1454,15 @@ body {
     font-size: 0.9rem;
 }
 
-/* Bouton admin visible */
-.admin-access-btn {
-    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-    border: 2px solid #00ff41;
-    color: #00ff41;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: bold;
+.hub-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
     transition: var(--transition);
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
 }
 
-.admin-access-btn:hover {
-    background: #00ff41;
-    color: #0d0d0d;
-    box-shadow: 0 0 25px rgba(0, 255, 65, 0.6);
-    transform: scale(1.05);
-}
-
-/* ==========================================
-   ADMIN TERMINAL MODAL
-   ========================================== */
-.admin-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 10000;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s ease;
-}
-
-.admin-modal.show {
-    display: flex;
-}
-
-.terminal-container {
-    width: 90%;
-    max-width: 900px;
-    height: 80vh;
-    max-height: 600px;
-    background: #0d0d0d;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 50px rgba(0, 255, 65, 0.3);
-    border: 1px solid #00ff41;
-    animation: terminalOpen 0.5s ease;
-}
-
-@keyframes terminalOpen {
-    from {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.terminal-header {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    background: #1a1a1a;
-    border-bottom: 1px solid #00ff41;
-}
-
-.terminal-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.terminal-btn {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.terminal-btn.close {
-    background: #ff5f57;
-}
-
-.terminal-btn.minimize {
-    background: #ffbd2e;
-}
-
-.terminal-btn.maximize {
-    background: #28c940;
-}
-
-.terminal-title {
-    flex: 1;
-    text-align: center;
-    color: #00ff41;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    font-weight: bold;
-}
-
-.terminal-body {
-    height: calc(100% - 45px);
-    padding: 20px;
-    overflow-y: auto;
-    font-family: 'Courier New', Consolas, monospace;
-    font-size: 14px;
-    background: #0d0d0d;
-}
-
-.terminal-output {
-    margin-bottom: 10px;
-}
-
-.terminal-line {
-    color: #00ff41;
-    margin-bottom: 5px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-
-.terminal-line.error {
-    color: #ff5f57;
-}
-
-.terminal-line.success {
-    color: #28c940;
-}
-
-.terminal-line.info {
-    color: #00bfff;
-}
-
-.terminal-line.warning {
-    color: #ffbd2e;
-}
-
-.terminal-input-line {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.terminal-prompt {
-    color: #00ff41;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.terminal-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: #00ff41;
-    font-family: 'Courier New', Consolas, monospace;
-    font-size: 14px;
-    outline: none;
-    caret-color: #00ff41;
-}
-
-.terminal-input::placeholder {
-    color: #006400;
-}
-
-/* Animation curseur clignotant */
-.terminal-input:focus {
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    0%, 50% { border-right: 2px solid #00ff41; }
-    51%, 100% { border-right: 2px solid transparent; }
-}
-
-/* Scrollbar style terminal */
-.terminal-body::-webkit-scrollbar {
-    width: 8px;
-}
-
-.terminal-body::-webkit-scrollbar-track {
-    background: #0d0d0d;
-}
-
-.terminal-body::-webkit-scrollbar-thumb {
-    background: #00ff41;
-    border-radius: 4px;
-}
-
-/* Submission card dans terminal */
-.terminal-submission {
-    background: #1a1a1a;
-    border: 1px solid #00ff41;
-    border-radius: 5px;
-    padding: 15px;
-    margin: 10px 0;
-}
-
-.terminal-submission-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px dashed #00ff41;
-}
-
-.terminal-submission-id {
-    color: #00bfff;
-}
-
-.terminal-submission-date {
-    color: #ffbd2e;
-}
-
-.terminal-submission-field {
-    margin: 5px 0;
-}
-
-.terminal-submission-field strong {
-    color: #00ff41;
-}
-
-.terminal-submission-field span {
-    color: #b0b0b0;
+.hub-link:hover {
+    color: var(--secondary-color);
 }
 
 /* ==========================================
@@ -1736,6 +1475,14 @@ body {
     
     .footer-content {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .back-to-hub {
+        top: auto;
+        bottom: 100px;
+        left: 20px;
+        padding: 10px 15px;
+        font-size: 0.8rem;
     }
 }
 
@@ -1801,20 +1548,9 @@ body {
         gap: 15px;
         text-align: center;
     }
-    
-    .floating-call-btn {
-        bottom: 20px;
-        right: 20px;
-        padding: 12px 20px;
-    }
-    
-    .call-text {
-        display: none;
-    }
-    
-    .terminal-container {
-        width: 95%;
-        height: 90vh;
+
+    .back-to-hub {
+        bottom: 90px;
     }
 }
 
@@ -1832,7 +1568,6 @@ body {
         transform: none;
     }
 }
-
 
 
 

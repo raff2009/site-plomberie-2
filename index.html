@@ -3,653 +3,824 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plomberie Expert - Services de plomberie professionnels à Lyon. Intervention rapide 24h/24, devis gratuit, travail garanti.">
-    <meta name="keywords" content="plombier, plomberie, dépannage, urgence, Lyon, réparation, installation">
-    <title>Plomberie Expert Lyon | Plombier Professionnel 24h/24</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Bienvenue chez Famille Martinez - Plomberie d'Expérience et Market Store">
+    <title>Martinez Hub | Plomberie & Market</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-cream: #f5f0e8;
+            --accent-copper: #b87333;
+            --accent-teal: #2dd4bf;
+            --text-dark: #1a1a1a;
+            --text-light: #fafafa;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-copper);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.15s ease, background 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hover {
+            transform: scale(2);
+            background: var(--accent-copper);
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--accent-teal);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+        }
+
+        /* Noise Overlay */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .preloader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            overflow: hidden;
+        }
+
+        .preloader-text span {
+            display: inline-block;
+            animation: slideUp 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        .preloader-text span:nth-child(1) { animation-delay: 0.1s; }
+        .preloader-text span:nth-child(2) { animation-delay: 0.15s; }
+        .preloader-text span:nth-child(3) { animation-delay: 0.2s; }
+        .preloader-text span:nth-child(4) { animation-delay: 0.25s; }
+        .preloader-text span:nth-child(5) { animation-delay: 0.3s; }
+        .preloader-text span:nth-child(6) { animation-delay: 0.35s; }
+        .preloader-text span:nth-child(7) { animation-delay: 0.4s; }
+        .preloader-text span:nth-child(8) { animation-delay: 0.45s; }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .preloader-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .preloader-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-copper), var(--accent-teal));
+            width: 0%;
+            animation: loading 2s ease forwards;
+        }
+
+        @keyframes loading {
+            to { width: 100%; }
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+
+        .nav-logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-time {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(184, 115, 51, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(45, 212, 191, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 70%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(80px, 80px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--accent-copper);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease 2.5s forwards;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 12vw, 10rem);
+            font-weight: 800;
+            line-height: 0.9;
+            letter-spacing: -5px;
+            margin-bottom: 40px;
+        }
+
+        .hero-title .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-title .line span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+            animation: slideUp 1s ease forwards;
+        }
+
+        .hero-title .line:nth-child(1) span { animation-delay: 2.3s; }
+        .hero-title .line:nth-child(2) span { animation-delay: 2.5s; }
+
+        .hero-title .accent {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--accent-teal);
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.6;
+            max-width: 500px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeIn 1s ease 2.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 0.6; }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeIn 1s ease 3s forwards;
+        }
+
+        .scroll-indicator span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--accent-copper), transparent);
+            animation: scrollPulse 2s ease infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 1; transform: scaleY(1); }
+            50% { opacity: 0.5; transform: scaleY(0.8); }
+        }
+
+        /* Split Section - Cards */
+        .split-section {
+            min-height: 100vh;
+            display: flex;
+            position: relative;
+        }
+
+        .split-card {
+            flex: 1;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: flex 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .split-section:hover .split-card {
+            flex: 0.8;
+        }
+
+        .split-section:hover .split-card:hover {
+            flex: 1.4;
+        }
+
+        /* Plomberie Card */
+        .card-plomberie {
+            background: linear-gradient(135deg, #1a1510 0%, #2a1f15 100%);
+        }
+
+        .card-plomberie::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(184, 115, 51, 0.3) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%23b87333' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        /* Market Card */
+        .card-market {
+            background: linear-gradient(135deg, #0f1a1a 0%, #152525 100%);
+        }
+
+        .card-market::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 70% 30%, rgba(45, 212, 191, 0.2) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%232dd4bf' opacity='0.2'/%3E%3C/svg%3E");
+        }
+
+        .card-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            width: 80%;
+            transition: transform 0.5s ease;
+        }
+
+        .split-card:hover .card-content {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .split-card:hover .card-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .card-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            font-weight: 800;
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            opacity: 0.05;
+            line-height: 1;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .card-plomberie .card-title {
+            background: linear-gradient(135deg, #fff 0%, var(--accent-copper) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-market .card-title {
+            background: linear-gradient(135deg, #fff 0%, var(--accent-teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            transition: left 0.4s ease;
+        }
+
+        .card-plomberie .card-btn::before {
+            background: var(--accent-copper);
+        }
+
+        .card-market .card-btn::before {
+            background: var(--accent-teal);
+        }
+
+        .card-btn:hover::before {
+            left: 0;
+        }
+
+        .card-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-btn:hover {
+            border-color: transparent;
+        }
+
+        .card-plomberie .card-btn:hover {
+            color: var(--bg-dark);
+        }
+
+        .card-market .card-btn:hover {
+            color: var(--bg-dark);
+        }
+
+        .btn-arrow {
+            transition: transform 0.4s ease;
+        }
+
+        .card-btn:hover .btn-arrow {
+            transform: translateX(10px);
+        }
+
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.2s;
+        }
+
+        .split-card:hover .card-features {
+            opacity: 1;
+        }
+
+        .feature-tag {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .card-plomberie .feature-tag {
+            background: rgba(184, 115, 51, 0.2);
+            border: 1px solid rgba(184, 115, 51, 0.3);
+            color: var(--accent-copper);
+        }
+
+        .card-market .feature-tag {
+            background: rgba(45, 212, 191, 0.2);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            color: var(--accent-teal);
+        }
+
+        /* Divider */
+        .split-divider {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3), transparent);
+            z-index: 10;
+        }
+
+        .split-divider::before {
+            content: 'OU';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-dark);
+            padding: 20px 15px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 30px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-left {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .footer-center {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-link {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: white;
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .split-section {
+                flex-direction: column;
+            }
+
+            .split-card {
+                min-height: 70vh;
+            }
+
+            .split-section:hover .split-card {
+                flex: 1;
+            }
+
+            .split-section:hover .split-card:hover {
+                flex: 1.2;
+            }
+
+            .split-divider {
+                top: 50%;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            }
+
+            .split-divider::before {
+                top: 50%;
+                left: 50%;
+            }
+
+            .nav {
+                padding: 20px 25px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .card-number {
+                font-size: 5rem;
+                top: 30px;
+                right: 30px;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .cursor, .cursor-dot {
+                display: none;
+            }
+        }
+
+        /* Animations on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-    <!-- Bouton retour en haut -->
-    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Retour en haut">↑</button>
+    <!-- Noise Overlay -->
+    <div class="noise"></div>
 
-    <!-- Header avec navigation -->
-    <header id="header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo">
-                    <span class="logo-icon">🔧</span>
-                    <span class="logo-text">Plomberie d'experience</span>
-                </div>
-                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#accueil" class="nav-link active">Accueil</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#tarifs" class="nav-link">Tarifs</a></li>
-                    <li><a href="#realisations" class="nav-link">Réalisations</a></li>
-                    <li><a href="#temoignages" class="nav-link">Témoignages</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <li><a href="#contact" class="nav-cta">📞 Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
 
-    <!-- Section Hero -->
-    <section id="accueil" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="hero-subtitle">Votre Plombier de Confiance à Lyon</span>
-                Mon plombier préféré
-            </h1>
-            <p class="hero-description">Intervention rapide • Devis gratuit • Garantie sur tous travaux</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">Devis Gratuit</a>
-                <a href="tel:0682691395" class="btn btn-secondary">📞 Appelez-nous</a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number" data-target="15">25</span>
-                    <span class="stat-label">Ans d'expérience</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="2500">5000</span>
-                    <span class="stat-label">Clients satisfaits</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="98">100%</span>
-                    <span class="stat-label">% Satisfaction</span>
-                </div>
-            </div>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-text">
+            <span>M</span><span>A</span><span>R</span><span>T</span><span>I</span><span>N</span><span>E</span><span>Z</span>
         </div>
-        <div class="hero-scroll">
-            <span>Découvrir</span>
-            <div class="scroll-arrow">↓</div>
-        </div>
-    </section>
-
-    <!-- Bande d'urgence -->
-    <div class="urgence-banner">
-        <div class="urgence-content">
-            <span class="urgence-icon">🚨</span>
-            <span class="urgence-text">Urgence Plomberie 24h/24 et 7j/7</span>
-            <a href="tel:0682691395" class="urgence-phone">06 82 69 13 95</a>
-            <span class="urgence-badge">Intervention sous 30min</span>
+        <div class="preloader-bar">
+            <div class="preloader-progress"></div>
         </div>
     </div>
 
-    <!-- Section Avantages -->
-    <section class="avantages">
-        <div class="container">
-            <div class="avantages-grid">
-                <div class="avantage-item">
-                    <div class="avantage-icon">⚡</div>
-                    <h3>Intervention Rapide</h3>
-                    <p>Dépannage sous 30 minutes en urgence</p>
-                </div>
-                <div class="avantage-item">
-                    <div class="avantage-icon">💰</div>
-                    <h3>Tarifs Transparents</h3>
-                    <p>Devis détaillé et sans surprise</p>
-                </div>
-                <div class="avantage-item">
-                    <div class="avantage-icon">✅</div>
-                    <h3>Travail Garanti</h3>
-                    <p>Garantie décennale sur tous travaux</p>
-                </div>
-                <div class="avantage-item">
-                    <div class="avantage-icon">🏆</div>
-                    <h3>Expertise Certifiée</h3>
-                    <p>Plombier qualifié RGE</p>
-                </div>
-            </div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">Martinez Hub</div>
+        <div class="nav-time" id="navTime"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Bienvenue chez</p>
+            <h1 class="hero-title">
+                <span class="line"><span>Martinez</span></span>
+                <span class="line"><span class="accent">Family</span></span>
+            </h1>
+            <p class="hero-tagline">Deux univers, une même passion pour l'excellence et le service</p>
+        </div>
+        <div class="scroll-indicator">
+            <span>Découvrir</span>
+            <div class="scroll-line"></div>
         </div>
     </section>
 
-    <!-- Section Services -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">Ce que nous faisons</span>
-                <h2 class="section-title">Nos Services de Plomberie</h2>
-                <p class="section-description">Des prestations complètes pour tous vos besoins en plomberie et chauffage</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-number">01</div>
-                    <div class="service-icon">🚰</div>
-                    <h3>Installation Sanitaire</h3>
-                    <p>Installation complète de salle de bain, cuisine, WC. Pose de robinetterie, lavabo, douche, baignoire.</p>
-                    <ul class="service-features">
-                        <li>Création salle de bain complète</li>
-                        <li>Rénovation cuisine</li>
-                        <li>Installation WC suspendu</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Demander un devis →</a>
+    <!-- Split Cards Section -->
+    <section class="split-section">
+        <div class="split-divider"></div>
+        
+        <!-- Plomberie Card -->
+        <a href="plomberie.html" class="split-card card-plomberie">
+            <div class="card-number">01</div>
+            <div class="card-content">
+                <span class="card-icon">🔧</span>
+                <h2 class="card-title">Plomberie d'Expérience</h2>
+                <p class="card-description">
+                    25 ans d'expertise au service de Lyon et son agglomération.<br>
+                    Intervention rapide, travail soigné, prix transparents.
+                </p>
+                <div class="card-btn">
+                    <span>Découvrir</span>
+                    <span class="btn-arrow">→</span>
                 </div>
-                <div class="service-card featured">
-                    <div class="service-badge">Populaire</div>
-                    <div class="service-number">02</div>
-                    <div class="service-icon">🔧</div>
-                    <h3>Dépannage Urgence</h3>
-                    <p>Intervention 24h/24 pour fuites, WC bouché, robinet cassé, chauffe-eau en panne.</p>
-                    <ul class="service-features">
-                        <li>Disponible 24h/24 et 7j/7</li>
-                        <li>Intervention sous 30min</li>
-                        <li>Réparation immédiate</li>
-                    </ul>
-                    <a href="tel:0682691395" class="service-link">Appeler maintenant →</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-number">03</div>
-                    <div class="service-icon">♨️</div>
-                    <h3>Chauffage & Chaudière</h3>
-                    <p>Installation, entretien et dépannage de chaudières gaz, électrique. Pose de radiateurs.</p>
-                    <ul class="service-features">
-                        <li>Installation chaudière neuve</li>
-                        <li>Entretien annuel</li>
-                        <li>Remplacement radiateurs</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Demander un devis →</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-number">04</div>
-                    <div class="service-icon">💧</div>
-                    <h3>Canalisation</h3>
-                    <p>Débouchage, détection de fuite, inspection caméra, remplacement de canalisations.</p>
-                    <ul class="service-features">
-                        <li>Débouchage haute pression</li>
-                        <li>Détection fuite sans casse</li>
-                        <li>Inspection vidéo</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Demander un devis →</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-number">05</div>
-                    <div class="service-icon">🚿</div>
-                    <h3>Rénovation</h3>
-                    <p>Rénovation complète de plomberie ancienne. Mise aux normes, remplacement de tuyauterie.</p>
-                    <ul class="service-features">
-                        <li>Rénovation totale</li>
-                        <li>Mise aux normes</li>
-                        <li>Remplacement tuyaux</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Demander un devis →</a>
-                </div>
-                <div class="service-card">
-                    <div class="service-number">06</div>
-                    <div class="service-icon">⚙️</div>
-                    <h3>Entretien</h3>
-                    <p>Contrat d'entretien annuel, maintenance préventive, détartrage, vérification complète.</p>
-                    <ul class="service-features">
-                        <li>Contrat maintenance</li>
-                        <li>Visite préventive</li>
-                        <li>Détartrage chauffe-eau</li>
-                    </ul>
-                    <a href="#contact" class="service-link">Demander un devis →</a>
+                <div class="card-features">
+                    <span class="feature-tag">Urgence 24/7</span>
+                    <span class="feature-tag">Devis Gratuit</span>
+                    <span class="feature-tag">Garantie 2 ans</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </a>
 
-    <!-- Section Tarifs -->
-    <section id="tarifs" class="tarifs">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">Nos prix</span>
-                <h2 class="section-title">Tarifs Transparents</h2>
-                <p class="section-description">Des prix justes et clairs, sans frais cachés</p>
-            </div>
-            <div class="tarifs-grid">
-                <div class="tarif-card">
-                    <h3>Dépannage Simple</h3>
-                    <div class="tarif-price">
-                        <span class="price-amount">65€</span>
-                        <span class="price-label">TTC</span>
-                    </div>
-                    <ul class="tarif-features">
-                        <li>✓ Déplacement inclus</li>
-                        <li>✓ Diagnostic</li>
-                        <li>✓ Petite réparation</li>
-                        <li>✓ Conseils gratuits</li>
-                    </ul>
-                    <a href="#contact" class="btn-tarif">Demander</a>
+        <!-- Market Card -->
+        <a href="market.html" class="split-card card-market">
+            <div class="card-number">02</div>
+            <div class="card-content">
+                <span class="card-icon">🛒</span>
+                <h2 class="card-title">Market Store</h2>
+                <p class="card-description">
+                    Notre boutique en ligne avec des produits sélectionnés.<br>
+                    Qualité, prix compétitifs et livraison rapide.
+                </p>
+                <div class="card-btn">
+                    <span>Explorer</span>
+                    <span class="btn-arrow">→</span>
                 </div>
-                <div class="tarif-card featured">
-                    <div class="tarif-badge">Recommandé</div>
-                    <h3>Intervention Complète</h3>
-                    <div class="tarif-price">
-                        <span class="price-amount">Sur devis</span>
-                    </div>
-                    <ul class="tarif-features">
-                        <li>✓ Devis gratuit détaillé</li>
-                        <li>✓ Matériel inclus</li>
-                        <li>✓ Garantie 2 ans</li>
-                        <li>✓ Nettoyage chantier</li>
-                        <li>✓ SAV prioritaire</li>
-                    </ul>
-                    <a href="#contact" class="btn-tarif">Devis Gratuit</a>
-                </div>
-                <div class="tarif-card">
-                    <h3>Contrat Entretien</h3>
-                    <div class="tarif-price">
-                        <span class="price-amount">120€</span>
-                        <span class="price-label">/an</span>
-                    </div>
-                    <ul class="tarif-features">
-                        <li>✓ Visite annuelle</li>
-                        <li>✓ Maintenance préventive</li>
-                        <li>✓ Tarif réduit dépannage</li>
-                        <li>✓ Priorité intervention</li>
-                    </ul>
-                    <a href="#contact" class="btn-tarif">Souscrire</a>
+                <div class="card-features">
+                    <span class="feature-tag">Livraison Express</span>
+                    <span class="feature-tag">Paiement Sécurisé</span>
+                    <span class="feature-tag">SAV Réactif</span>
                 </div>
             </div>
-            <div class="tarif-note">
-                💡 <strong>Note :</strong> Nos tarifs peuvent varier selon la complexité et l'urgence. Devis gratuit et sans engagement.
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Réalisations -->
-    <section id="realisations" class="realisations">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">Notre travail</span>
-                <h2 class="section-title">Nos Réalisations</h2>
-                <p class="section-description">Découvrez quelques-uns de nos projets récents</p>
-            </div>
-            <div class="realisations-grid">
-                <div class="realisation-card">
-                    <div class="realisation-image">
-                        <!-- REMPLACE src="" PAR LE CHEMIN DE TON IMAGE ex: src="images/salle-de-bain.jpg" -->
-                        <img src="" alt="Rénovation salle de bain moderne" class="realisation-img">
-                        <div class="realisation-overlay">
-                            <span class="realisation-category">Salle de bain</span>
-                        </div>
-                    </div>
-                    <div class="realisation-content">
-                        <h3>Rénovation Salle de Bain Moderne</h3>
-                        <p>Rénovation complète avec douche italienne, double vasque et WC suspendu - Lyon 6ème</p>
-                        <div class="realisation-meta">
-                            <span>📍 Lyon 6ème</span>
-                            <span>⏱️ 5 jours</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="realisation-card">
-                    <div class="realisation-image">
-                        <!-- REMPLACE src="" PAR LE CHEMIN DE TON IMAGE ex: src="images/chauffage.jpg" -->
-                        <img src="" alt="Installation chaudière gaz" class="realisation-img">
-                        <div class="realisation-overlay">
-                            <span class="realisation-category">Chauffage</span>
-                        </div>
-                    </div>
-                    <div class="realisation-content">
-                        <h3>Installation Chaudière Gaz</h3>
-                        <p>Remplacement chaudière ancienne par modèle condensation + 8 radiateurs - Villeurbanne</p>
-                        <div class="realisation-meta">
-                            <span>📍 Villeurbanne</span>
-                            <span>⏱️ 3 jours</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="realisation-card">
-                    <div class="realisation-image">
-                        <!-- REMPLACE src="" PAR LE CHEMIN DE TON IMAGE ex: src="images/fuite.jpg" -->
-                        <img src="" alt="Réparation fuite" class="realisation-img">
-                        <div class="realisation-overlay">
-                            <span class="realisation-category">Urgence</span>
-                        </div>
-                    </div>
-                    <div class="realisation-content">
-                        <h3>Réparation Fuite Importante</h3>
-                        <p>Détection et réparation fuite cachée sous dalle avec caméra thermique - Lyon 3ème</p>
-                        <div class="realisation-meta">
-                            <span>📍 Lyon 3ème</span>
-                            <span>⏱️ 1 jour</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="realisation-card">
-                    <div class="realisation-image">
-                        <!-- REMPLACE src="" PAR LE CHEMIN DE TON IMAGE ex: src="images/cuisine.jpg" -->
-                        <img src="" alt="Plomberie cuisine" class="realisation-img">
-                        <div class="realisation-overlay">
-                            <span class="realisation-category">Cuisine</span>
-                        </div>
-                    </div>
-                    <div class="realisation-content">
-                        <h3>Plomberie Cuisine Équipée</h3>
-                        <p>Installation complète cuisine : évier, lave-vaisselle, arrivées d'eau - Caluire</p>
-                        <div class="realisation-meta">
-                            <span>📍 Caluire</span>
-                            <span>⏱️ 2 jours</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Témoignages -->
-    <section id="temoignages" class="temoignages">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">Avis clients</span>
-                <h2 class="section-title">Ce Que Disent Nos Clients</h2>
-                <p class="section-description">Plus de 2500 clients satisfaits nous font confiance</p>
-            </div>
-            <div class="temoignages-slider">
-                <div class="temoignage-card">
-                    <div class="temoignage-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="temoignage-text">"Intervention très rapide pour une fuite d'eau en pleine nuit. Travail propre et professionnel. Je recommande vivement !"</p>
-                    <div class="temoignage-author">
-                        <strong>Marie Dubois</strong>
-                        <span>Lyon 6ème</span>
-                    </div>
-                </div>
-                <div class="temoignage-card">
-                    <div class="temoignage-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="temoignage-text">"Rénovation complète de notre salle de bain. Excellent conseil, respect des délais et du budget. Résultat magnifique !"</p>
-                    <div class="temoignage-author">
-                        <strong>Jean Martin</strong>
-                        <span>Villeurbanne</span>
-                    </div>
-                </div>
-                <div class="temoignage-card">
-                    <div class="temoignage-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="temoignage-text">"Plombier très compétent et honnête. A pris le temps d'expliquer le problème et la solution. Prix correct."</p>
-                    <div class="temoignage-author">
-                        <strong>Sophie Bernard</strong>
-                        <span>Lyon 3ème</span>
-                    </div>
-                </div>
-            </div>
-            <div class="temoignages-stats">
-                <div class="temoignage-stat">
-                    <div class="stat-icon">⭐</div>
-                    <div class="stat-value">4.9/5</div>
-                    <div class="stat-label">Note moyenne</div>
-                </div>
-                <div class="temoignage-stat">
-                    <div class="stat-icon">💬</div>
-                    <div class="stat-value">350+</div>
-                    <div class="stat-label">Avis Google</div>
-                </div>
-                <div class="temoignage-stat">
-                    <div class="stat-icon">🏆</div>
-                    <div class="stat-value">98%</div>
-                    <div class="stat-label">Clients satisfaits</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Zone d'intervention -->
-    <section class="zone-intervention">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">Où nous intervenons</span>
-                <h2 class="section-title">Zone d'Intervention</h2>
-            </div>
-            <div class="zone-content">
-                <div class="zone-map">
-                    <!-- REMPLACE src="" PAR LE CHEMIN DE TON IMAGE DE CARTE ex: src="images/carte-lyon.jpg" -->
-                    <img src="" alt="Zone d'intervention Lyon et agglomération" class="zone-map-img">
-                    <!-- Si pas d'image, ce placeholder s'affichera -->
-                    <div class="map-placeholder">
-                        <span class="map-icon">🗺️</span>
-                        <p>Nous intervenons dans toute l'agglomération lyonnaise et ses environs</p>
-                    </div>
-                </div>
-                <div class="zone-list">
-                    <h3>Villes couvertes</h3>
-                    <div class="villes-grid">
-                        <span class="ville-tag">Lyon (tous arrondissements)</span>
-                        <span class="ville-tag">Villeurbanne</span>
-                        <span class="ville-tag">Vaulx-en-Velin</span>
-                        <span class="ville-tag">Bron</span>
-                        <span class="ville-tag">Vénissieux</span>
-                        <span class="ville-tag">Caluire-et-Cuire</span>
-                        <span class="ville-tag">Saint-Priest</span>
-                        <span class="ville-tag">Meyzieu</span>
-                        <span class="ville-tag">Décines-Charpieu</span>
-                        <span class="ville-tag">Rillieux-la-Pape</span>
-                        <span class="ville-tag">Tassin-la-Demi-Lune</span>
-                        <span class="ville-tag">Écully</span>
-                    </div>
-                    <p class="zone-note">💡 Votre ville n'est pas dans la liste ? Contactez-nous, nous pourrons peut-être intervenir !</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Contact -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">Parlons de votre projet</span>
-                <h2 class="section-title">Contactez-nous</h2>
-                <p class="section-description">Devis gratuit sous 24h • Réponse rapide garantie</p>
-            </div>
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <h3>Coordonnées</h3>
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
-                        <div>
-                            <strong>Téléphone</strong>
-                            <a href="tel:0682691395">06 82 69 13 95</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">✉️</div>
-                        <div>
-                            <strong>Email</strong>
-                            <a href="mailto:contact@plomberie-expert.fr">contact@plomberie-expert.fr</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <strong>Adresse</strong>
-                            <span>Lyon et agglomération</span>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🕐</div>
-                        <div>
-                            <strong>Horaires</strong>
-                            <span>Lun-Ven : 8h-19h</span>
-                            <span>Sam : 9h-17h</span>
-                            <span class="urgence-text-contact">Urgence 24h/24</span>
-                        </div>
-                    </div>
-                    <div class="contact-certifications">
-                        <h4>Certifications</h4>
-                        <div class="certif-badges">
-                            <span class="certif-badge">🏆 RGE</span>
-                            <span class="certif-badge">✅ Qualibat</span>
-                            <span class="certif-badge">🛡️ Assurance Décennale</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form-wrapper">
-                    <div id="successMessage" class="success-message">
-                        ✅ Votre message a été envoyé avec succès ! Nous vous recontactons très rapidement.
-                    </div>
-                    <form id="contactForm" class="contact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="nom">Nom complet *</label>
-                                <input type="text" id="nom" name="nom" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="tel">Téléphone *</label>
-                                <input type="tel" id="tel" name="tel" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="ville">Ville</label>
-                                <input type="text" id="ville" name="ville" placeholder="Ex: Lyon 6ème">
-                            </div>
-                            <div class="form-group">
-                                <label for="urgence">Type d'intervention</label>
-                                <select id="urgence" name="urgence">
-                                    <option value="devis">Demande de devis</option>
-                                    <option value="urgence">Dépannage urgence</option>
-                                    <option value="rdv">Prise de rendez-vous</option>
-                                    <option value="info">Demande d'information</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Décrivez votre besoin *</label>
-                            <textarea id="message" name="message" rows="5" required placeholder="Décrivez votre projet ou votre problème..."></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">
-                            <span class="btn-text">Envoyer ma demande</span>
-                            <span class="btn-icon">→</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section FAQ -->
-    <section id="faq" class="faq">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-subtitle">Questions fréquentes</span>
-                <h2 class="section-title">FAQ</h2>
-            </div>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Intervenez-vous en urgence le week-end ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Oui, nous sommes disponibles 24h/24 et 7j/7 pour toutes les urgences de plomberie (fuites, WC bouchés, chauffe-eau en panne, etc.).</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Le devis est-il vraiment gratuit ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Absolument ! Nous nous déplaçons gratuitement pour établir un devis détaillé, sans aucun engagement de votre part.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Quels moyens de paiement acceptez-vous ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Nous acceptons les espèces, chèques, virements bancaires et cartes bancaires. Possibilité de paiement en plusieurs fois pour les gros travaux.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Avez-vous une garantie sur vos travaux ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Oui, tous nos travaux sont garantis 2 ans pièces et main d'œuvre. Nous disposons également d'une assurance décennale.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Puis-je obtenir des aides pour mes travaux ?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Oui, certains travaux (chaudière, isolation) peuvent être éligibles aux aides de l'État (MaPrimeRénov'). Nous vous accompagnons dans vos démarches.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </a>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <div class="logo">
-                        <span class="logo-icon">🔧</span>
-                        <span class="logo-text">Plomberie d'experience</span>
-                    </div>
-                    <p>Votre plombier de confiance à Lyon depuis 25 ans.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Liens rapides</h4>
-                    <a href="#accueil">Accueil</a>
-                    <a href="#services">Services</a>
-                    <a href="#tarifs">Tarifs</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="footer-contact">
-                    <h4>Contact</h4>
-                    <p>📞 06 82 69 13 95</p>
-                    <p>✉️ contact@plomberie-expert.fr</p>
-                    <p>📍 Lyon et agglomération</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 Plomberie Expert Lyon - Tous droits réservés</p>
-                <!-- Bouton admin caché -->
-                <button id="adminAccessBtn" class="admin-access-btn" title="Administration">⚙</button>
-            </div>
+        <div class="footer-left">© 2025 Martinez Hub</div>
+        <div class="footer-center">Lyon, France</div>
+        <div class="footer-right">
+            <a href="tel:0682691395" class="footer-link">+33 6 82 69 13 95</a>
+            <a href="mailto:contact@martinez-hub.fr" class="footer-link">Contact</a>
         </div>
     </footer>
 
-    <!-- MODAL ADMIN TERMINAL -->
-    <div id="adminModal" class="admin-modal">
-        <div class="terminal-container">
-            <div class="terminal-header">
-                <div class="terminal-buttons">
-                    <span class="terminal-btn close" id="closeTerminal"></span>
-                    <span class="terminal-btn minimize"></span>
-                    <span class="terminal-btn maximize"></span>
-                </div>
-                <div class="terminal-title">admin@plomberie-expert:~</div>
-            </div>
-            <div class="terminal-body" id="terminalBody">
-                <div class="terminal-output" id="terminalOutput">
-                    <p class="terminal-line">╔══════════════════════════════════════════════════════════════╗</p>
-                    <p class="terminal-line">║     PLOMBERIE EXPERT - SYSTÈME D'ADMINISTRATION v2.0        ║</p>
-                    <p class="terminal-line">╚══════════════════════════════════════════════════════════════╝</p>
-                    <p class="terminal-line"></p>
-                    <p class="terminal-line">[SYSTÈME] Connexion requise...</p>
-                    <p class="terminal-line">[SYSTÈME] Tapez le mot de passe pour accéder au terminal.</p>
-                    <p class="terminal-line"></p>
-                </div>
-                <div class="terminal-input-line">
-                    <span class="terminal-prompt">password:~$</span>
-                    <input type="password" id="terminalInput" class="terminal-input" autocomplete="off" autofocus>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 2200);
+        });
 
-    <script src="script.js"></script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        if (window.innerWidth > 900) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 10 + 'px';
+                cursor.style.top = e.clientY - 10 + 'px';
+                cursorDot.style.left = e.clientX - 2 + 'px';
+                cursorDot.style.top = e.clientY - 2 + 'px';
+            });
+
+            document.querySelectorAll('a, button, .split-card').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+        }
+
+        // Time Display
+        function updateTime() {
+            const now = new Date();
+            const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            document.getElementById('navTime').textContent = now.toLocaleTimeString('fr-FR', options);
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Smooth scroll indicator click
+        document.querySelector('.scroll-indicator')?.addEventListener('click', () => {
+            document.querySelector('.split-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Reveal on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        window.addEventListener('scroll', () => {
+            reveals.forEach(reveal => {
+                const revealTop = reveal.getBoundingClientRect().top;
+                if (revealTop < window.innerHeight - 100) {
+                    reveal.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
 
 
 
