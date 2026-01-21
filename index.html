@@ -18,8 +18,8 @@
         :root {
             --bg-dark: #0a0a0a;
             --bg-cream: #f5f0e8;
-            --accent-copper: #b87333;
-            --accent-teal: #2dd4bf;
+            --accent-purple: #9333ea;
+            --accent-pink: #ec4899;
             --text-dark: #1a1a1a;
             --text-light: #fafafa;
         }
@@ -33,35 +33,6 @@
             background: var(--bg-dark);
             color: var(--text-light);
             overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* Custom Cursor */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--accent-copper);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 99999;
-            transition: transform 0.15s ease, background 0.15s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor.hover {
-            transform: scale(2);
-            background: var(--accent-copper);
-        }
-
-        .cursor-dot {
-            width: 4px;
-            height: 4px;
-            background: var(--accent-teal);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 99999;
         }
 
         /* Noise Overlay */
@@ -134,7 +105,7 @@
 
         .preloader-progress {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent-copper), var(--accent-teal));
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));
             width: 0%;
             animation: loading 2s ease forwards;
         }
@@ -160,7 +131,9 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            mix-blend-mode: difference;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .nav-logo {
@@ -168,6 +141,7 @@
             font-size: 0.9rem;
             letter-spacing: 2px;
             text-transform: uppercase;
+            color: var(--accent-purple);
         }
 
         .nav-time {
@@ -193,9 +167,9 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(ellipse at 20% 80%, rgba(184, 115, 51, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(45, 212, 191, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 70%);
+                radial-gradient(ellipse at 20% 80%, rgba(147, 51, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
         }
 
         .hero-grid {
@@ -205,8 +179,8 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(147, 51, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(147, 51, 234, 0.03) 1px, transparent 1px);
             background-size: 80px 80px;
             animation: gridMove 20s linear infinite;
         }
@@ -227,7 +201,7 @@
             font-size: 0.85rem;
             letter-spacing: 8px;
             text-transform: uppercase;
-            color: var(--accent-copper);
+            color: var(--accent-purple);
             margin-bottom: 30px;
             opacity: 0;
             animation: fadeIn 1s ease 2.5s forwards;
@@ -258,22 +232,24 @@
         .hero-title .line:nth-child(2) span { animation-delay: 2.5s; }
 
         .hero-title .accent {
-            color: transparent;
-            -webkit-text-stroke: 2px var(--accent-teal);
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-tagline {
             font-size: 1.1rem;
             font-weight: 300;
-            opacity: 0.6;
+            opacity: 0;
             max-width: 500px;
             margin: 0 auto;
-            opacity: 0;
             animation: fadeIn 1s ease 2.8s forwards;
+            color: rgba(255,255,255,0.7);
         }
 
         @keyframes fadeIn {
-            to { opacity: 0.6; }
+            to { opacity: 0.7; }
         }
 
         .scroll-indicator {
@@ -286,7 +262,12 @@
             align-items: center;
             gap: 10px;
             opacity: 0;
-            animation: fadeIn 1s ease 3s forwards;
+            animation: fadeInFull 1s ease 3s forwards;
+            cursor: pointer;
+        }
+
+        @keyframes fadeInFull {
+            to { opacity: 1; }
         }
 
         .scroll-indicator span {
@@ -299,7 +280,7 @@
         .scroll-line {
             width: 1px;
             height: 60px;
-            background: linear-gradient(to bottom, var(--accent-copper), transparent);
+            background: linear-gradient(to bottom, var(--accent-purple), transparent);
             animation: scrollPulse 2s ease infinite;
         }
 
@@ -322,6 +303,8 @@
             overflow: hidden;
             cursor: pointer;
             transition: flex 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: white;
         }
 
         .split-section:hover .split-card {
@@ -334,7 +317,7 @@
 
         /* Plomberie Card */
         .card-plomberie {
-            background: linear-gradient(135deg, #1a1510 0%, #2a1f15 100%);
+            background: linear-gradient(135deg, #1a0f1f 0%, #2a1530 100%);
         }
 
         .card-plomberie::before {
@@ -345,14 +328,14 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 30% 70%, rgba(184, 115, 51, 0.3) 0%, transparent 50%),
-                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%23b87333' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
+                radial-gradient(circle at 30% 70%, rgba(147, 51, 234, 0.3) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L30 60M0 30L60 30' stroke='%239333ea' stroke-width='0.5' opacity='0.1'/%3E%3C/svg%3E");
             opacity: 0.5;
         }
 
         /* Market Card */
         .card-market {
-            background: linear-gradient(135deg, #0f1a1a 0%, #152525 100%);
+            background: linear-gradient(135deg, #0f1a1f 0%, #1a252a 100%);
         }
 
         .card-market::before {
@@ -363,8 +346,8 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 70% 30%, rgba(45, 212, 191, 0.2) 0%, transparent 50%),
-                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%232dd4bf' opacity='0.2'/%3E%3C/svg%3E");
+                radial-gradient(circle at 70% 30%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%23ec4899' opacity='0.2'/%3E%3C/svg%3E");
         }
 
         .card-content {
@@ -413,14 +396,14 @@
         }
 
         .card-plomberie .card-title {
-            background: linear-gradient(135deg, #fff 0%, var(--accent-copper) 100%);
+            background: linear-gradient(135deg, #fff 0%, var(--accent-purple) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .card-market .card-title {
-            background: linear-gradient(135deg, #fff 0%, var(--accent-teal) 100%);
+            background: linear-gradient(135deg, #fff 0%, var(--accent-pink) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -428,9 +411,9 @@
 
         .card-description {
             font-size: 1rem;
-            opacity: 0.7;
             margin-bottom: 40px;
             line-height: 1.8;
+            color: rgba(255,255,255,0.8);
         }
 
         .card-btn {
@@ -438,7 +421,7 @@
             align-items: center;
             gap: 15px;
             padding: 20px 40px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
             background: transparent;
             color: white;
             font-family: 'Space Mono', monospace;
@@ -462,11 +445,11 @@
         }
 
         .card-plomberie .card-btn::before {
-            background: var(--accent-copper);
+            background: var(--accent-purple);
         }
 
         .card-market .card-btn::before {
-            background: var(--accent-teal);
+            background: var(--accent-pink);
         }
 
         .card-btn:hover::before {
@@ -480,14 +463,6 @@
 
         .card-btn:hover {
             border-color: transparent;
-        }
-
-        .card-plomberie .card-btn:hover {
-            color: var(--bg-dark);
-        }
-
-        .card-market .card-btn:hover {
-            color: var(--bg-dark);
         }
 
         .btn-arrow {
@@ -521,15 +496,15 @@
         }
 
         .card-plomberie .feature-tag {
-            background: rgba(184, 115, 51, 0.2);
-            border: 1px solid rgba(184, 115, 51, 0.3);
-            color: var(--accent-copper);
+            background: rgba(147, 51, 234, 0.2);
+            border: 1px solid rgba(147, 51, 234, 0.4);
+            color: #c084fc;
         }
 
         .card-market .feature-tag {
-            background: rgba(45, 212, 191, 0.2);
-            border: 1px solid rgba(45, 212, 191, 0.3);
-            color: var(--accent-teal);
+            background: rgba(236, 72, 153, 0.2);
+            border: 1px solid rgba(236, 72, 153, 0.4);
+            color: #f9a8d4;
         }
 
         /* Divider */
@@ -540,7 +515,7 @@
             transform: translateX(-50%);
             width: 1px;
             height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(to bottom, transparent, rgba(147, 51, 234, 0.5), transparent);
             z-index: 10;
         }
 
@@ -555,8 +530,9 @@
             font-family: 'Space Mono', monospace;
             font-size: 0.7rem;
             letter-spacing: 3px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(147, 51, 234, 0.5);
             border-radius: 30px;
+            color: var(--accent-purple);
         }
 
         /* Footer */
@@ -596,6 +572,7 @@
 
         .footer-link:hover {
             opacity: 1;
+            color: var(--accent-purple);
         }
 
         /* Responsive */
@@ -621,7 +598,7 @@
                 left: 0;
                 width: 100%;
                 height: 1px;
-                background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+                background: linear-gradient(to right, transparent, rgba(147, 51, 234, 0.5), transparent);
             }
 
             .split-divider::before {
@@ -644,26 +621,6 @@
                 top: 30px;
                 right: 30px;
             }
-
-            body {
-                cursor: auto;
-            }
-
-            .cursor, .cursor-dot {
-                display: none;
-            }
-        }
-
-        /* Animations on scroll */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
@@ -671,14 +628,10 @@
     <!-- Noise Overlay -->
     <div class="noise"></div>
 
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-dot"></div>
-
     <!-- Preloader -->
     <div class="preloader" id="preloader">
         <div class="preloader-text">
-            <span>P</span><span>l</span><span>o</span><span>m</span><span>b</span><span>i</span><span>e</span><span>r</span>
+            <span>M</span><span>a</span><span>r</span><span>t</span><span>i</span><span>n</span><span>e</span><span>z</span>
         </div>
         <div class="preloader-bar">
             <div class="preloader-progress"></div>
@@ -698,8 +651,8 @@
         <div class="hero-content">
             <p class="hero-subtitle">Bienvenue chez</p>
             <h1 class="hero-title">
-                <span class="line"><span>Mon plombier préféré</span></span>
-                <span class="line"><span class="accent">artisant plombier</span></span>
+                <span class="line"><span>Famille Martinez</span></span>
+                <span class="line"><span class="accent">Plomberie & Market</span></span>
             </h1>
             <p class="hero-tagline">Deux univers, une même passion pour l'excellence et le service</p>
         </div>
@@ -718,10 +671,10 @@
             <div class="card-number">01</div>
             <div class="card-content">
                 <span class="card-icon">🔧</span>
-                <h2 class="card-title">Artisant plombier</h2>
+                <h2 class="card-title">Plomberie Expert</h2>
                 <p class="card-description">
                     25 ans d'expertise au service de Lyon et son agglomération.<br>
-                    Intervention rapide, travail soigné.
+                    Intervention rapide, travail soigné, garantie professionnelle.
                 </p>
                 <div class="card-btn">
                     <span>Découvrir</span>
@@ -740,10 +693,10 @@
             <div class="card-number">02</div>
             <div class="card-content">
                 <span class="card-icon">🛒</span>
-                <h2 class="card-title">Magazin</h2>
+                <h2 class="card-title">Market Store</h2>
                 <p class="card-description">
                     Notre boutique en ligne avec des produits sélectionnés.<br>
-                    Qualité, prix compétitifs et livraison rapide.
+                    Qualité garantie, prix compétitifs et livraison express.
                 </p>
                 <div class="card-btn">
                     <span>Explorer</span>
@@ -760,7 +713,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-left">© Artisant depuis 2002</div>
+        <div class="footer-left">© Famille Martinez depuis 2002</div>
         <div class="footer-center">Lyon, France</div>
         <div class="footer-right">
             <a href="tel:0682691395" class="footer-link">+33 6 82 69 13 95</a>
@@ -776,24 +729,6 @@
             }, 2200);
         });
 
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorDot = document.querySelector('.cursor-dot');
-
-        if (window.innerWidth > 900) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX - 10 + 'px';
-                cursor.style.top = e.clientY - 10 + 'px';
-                cursorDot.style.left = e.clientX - 2 + 'px';
-                cursorDot.style.top = e.clientY - 2 + 'px';
-            });
-
-            document.querySelectorAll('a, button, .split-card').forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-            });
-        }
-
         // Time Display
         function updateTime() {
             const now = new Date();
@@ -806,17 +741,6 @@
         // Smooth scroll indicator click
         document.querySelector('.scroll-indicator')?.addEventListener('click', () => {
             document.querySelector('.split-section').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // Reveal on scroll
-        const reveals = document.querySelectorAll('.reveal');
-        window.addEventListener('scroll', () => {
-            reveals.forEach(reveal => {
-                const revealTop = reveal.getBoundingClientRect().top;
-                if (revealTop < window.innerHeight - 100) {
-                    reveal.classList.add('active');
-                }
-            });
         });
     </script>
 </body>
