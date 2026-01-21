@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Market Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-main: #fafaf9; --bg-dark: #0a0a0a; --accent: #2dd4bf; --accent-dark: #14b8a6;
+            --text: #1a1a1a; --text-light: #6b7280; --border: #e5e5e5; --card-bg: #ffffff;
+        }
+        body { 
+            font-family: 'DM Sans', sans-serif; 
+            background: linear-gradient(135deg, #0f1a1a, #1a2f2f); 
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .registration-container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .registration-header {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .registration-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .registration-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .registration-subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .registration-form {
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, rgba(45,212,191,0.1), rgba(45,212,191,0.2));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-label .required {
+            color: #ef4444;
+            margin-left: 3px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(45,212,191,0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .checkbox-input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .checkbox-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .checkbox-label a {
+            color: var(--accent-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(45,212,191,0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border);
+        }
+
+        .form-footer-text {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .form-footer-link {
+            color: var(--accent-dark);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .form-footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(45,212,191,0.1), rgba(45,212,191,0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 30px;
+        }
+
+        .success-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .success-text {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            background: var(--bg-dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .registration-header {
+                padding: 30px 20px;
+            }
+            .registration-form {
+                padding: 30px 20px;
+            }
+            .registration-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <div class="registration-header">
+            <div class="header-icon">🛒</div>
+            <h1 class="registration-title">Inscription</h1>
+            <p class="registration-subtitle">Créez votre compte Market Store</p>
+        </div>
+
+        <form class="registration-form" id="registrationForm">
+            <!-- Informations personnelles -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <span class="section-icon">👤</span>
+                    Informations personnelles
+                </h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Prénom<span class="required">*</span></label>
+                        <input type="text" class="form-input" name="firstName" placeholder="Jean" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nom<span class="required">*</span></label>
+                        <input type="text" class="form-input" name="lastName" placeholder="Dupont" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email<span class="required">*</span></label>
+                    <input type="email" class="form-input" name="email" placeholder="jean.dupont@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Téléphone<span class="required">*</span></label>
+                    <input type="tel" class="form-input" name="phone" placeholder="06 12 34 56 78" required>
+                </div>
+            </div>
+
+            <!-- Adresse -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <span class="section-icon">📍</span>
+                    Adresse de livraison
+                </h2>
+                
+                <div class="form-group">
+                    <label class="form-label">Adresse complète<span class="required">*</span></label>
+                    <input type="text" class="form-input" name="address" placeholder="123 Rue de la Paix" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Code postal<span class="required">*</span></label>
+                        <input type="text" class="form-input" name="postalCode" placeholder="75001" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ville<span class="required">*</span></label>
+                        <input type="text" class="form-input" name="city" placeholder="Paris" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Pays<span class="required">*</span></label>
+                    <select class="form-select" name="country" required>
+                        <option value="">Sélectionnez un pays</option>
+                        <option value="FR" selected>France</option>
+                        <option value="BE">Belgique</option>
+                        <option value="CH">Suisse</option>
+                        <option value="CA">Canada</option>
+                        <option value="LU">Luxembourg</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Mode de paiement préféré -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <span class="section-icon">💳</span>
+                    Mode de paiement préféré
+                </h2>
+                
+                <div class="form-group">
+                    <label class="form-label">Méthode préférée</label>
+                    <select class="form-select" name="paymentMethod">
+                        <option value="carte">Carte bancaire</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="virement">Virement bancaire</option>
+                        <option value="cash">Espèces (retrait en magasin)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <span class="section-icon">🔒</span>
+                    Sécurité
+                </h2>
+                
+                <div class="form-group">
+                    <label class="form-label">Mot de passe<span class="required">*</span></label>
+                    <input type="password" class="form-input" name="password" placeholder="••••••••" required minlength="8">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Confirmer le mot de passe<span class="required">*</span></label>
+                    <input type="password" class="form-input" name="confirmPassword" placeholder="••••••••" required minlength="8">
+                </div>
+            </div>
+
+            <!-- Conditions -->
+            <div class="checkbox-group">
+                <input type="checkbox" class="checkbox-input" id="terms" required>
+                <label class="checkbox-label" for="terms">
+                    J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité</a> de Market Store
+                </label>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" class="checkbox-input" id="newsletter">
+                <label class="checkbox-label" for="newsletter">
+                    Je souhaite recevoir les offres et nouveautés par email
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">Créer mon compte →</button>
+
+            <div class="form-footer">
+                <span class="form-footer-text">Vous avez déjà un compte ?</span>
+                <a href="market.html" class="form-footer-link">Se connecter</a>
+            </div>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            <div class="success-icon">✓</div>
+            <h2 class="success-title">Compte créé avec succès !</h2>
+            <p class="success-text">Bienvenue sur Market Store. Vous pouvez maintenant profiter de tous nos services.</p>
+            <a href="market.html" class="back-btn">← Retour à la boutique</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validation du mot de passe
+            const password = form.password.value;
+            const confirmPassword = form.confirmPassword.value;
+
+            if (password !== confirmPassword) {
+                alert('Les mots de passe ne correspondent pas !');
+                return;
+            }
+
+            // Récupération des données du formulaire
+            const formData = {
+                firstName: form.firstName.value,
+                lastName: form.lastName.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                address: form.address.value,
+                postalCode: form.postalCode.value,
+                city: form.city.value,
+                country: form.country.value,
+                paymentMethod: form.paymentMethod.value,
+                newsletter: document.getElementById('newsletter').checked
+            };
+
+            // Sauvegarde dans localStorage
+            localStorage.setItem('userProfile', JSON.stringify(formData));
+
+            console.log('Utilisateur inscrit:', formData);
+
+            // Affichage du message de succès
+            form.style.display = 'none';
+            successMessage.classList.add('show');
+
+            // Redirection après 3 secondes
+            setTimeout(() => {
+                window.location.href = 'market.html';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

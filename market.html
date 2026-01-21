@@ -367,9 +367,9 @@
         <div class="newsletter-inner">
             <h2 class="newsletter-title">Restez informé</h2>
             <p class="newsletter-description">Inscrivez-vous pour recevoir nos offres exclusives</p>
-            <form class="newsletter-form" onsubmit="return false;">
+            <form class="newsletter-form" action="inscription.html">
                 <input type="email" class="newsletter-input" placeholder="Votre email">
-                <button class="newsletter-btn">S'inscrire</button>
+                <button class="newsletter-btn" type="submit">S'inscrire</button>
             </form>
         </div>
     </section>
@@ -400,7 +400,7 @@
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header"><h3 class="cart-title">Mon Panier</h3><button class="cart-close" id="cartClose">✕</button></div>
         <div class="cart-items" id="cartItems"><div class="cart-empty"><div class="cart-empty-icon">🛒</div><p class="cart-empty-text">Votre panier est vide</p></div></div>
-        <div class="cart-footer"><div class="cart-total"><span class="cart-total-label">Total</span><span class="cart-total-price" id="cartTotal">0,00 €</span></div><button class="checkout-btn">Passer commande →</button></div>
+        <div class="cart-footer"><div class="cart-total"><span class="cart-total-label">Total</span><span class="cart-total-price" id="cartTotal">0,00 €</span></div> <button class="checkout-btn" id="checkoutBtn">Passer commande →</button></div>
     </div>
 
     <div class="toast" id="toast"><div class="toast-icon">✓</div><span id="toastText">Produit ajouté</span></div>
@@ -507,6 +507,16 @@
         document.getElementById('cartClose').addEventListener('click', closeCart);
         document.getElementById('cartOverlay').addEventListener('click', closeCart);
 
+        // ✅✅✅ NOUVEAU CODE ICI - Bouton Passer commande ✅✅✅
+        document.getElementById('checkoutBtn').addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Votre panier est vide !');
+                return;
+            }
+            window.location.href = 'checkout.html';
+        });
+        // ✅✅✅ FIN DU NOUVEAU CODE ✅✅✅
+
         document.addEventListener('DOMContentLoaded', function() { renderProducts(); updateCartUI(); });
 
         // ==========================================
@@ -519,7 +529,7 @@
         const terminalOutput = document.getElementById('terminalOutput');
 
         let isLoggedIn = false;
-        const ADMIN_PASSWORD = 'market2025'; // Change this password!
+        const ADMIN_PASSWORD = 'market2025';
 
         function openAdminTerminal() {
             adminModal.classList.add('show');
@@ -646,6 +656,7 @@
                 adminModal.classList.remove('show');
             }
         });
+
     </script>
 </body>
 </html>
